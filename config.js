@@ -7,12 +7,12 @@ export default {
                 categories: {
                     moderator: [
                         {   // Admin
-                            id: '784875278593818694',
+                            id: '917806303194263634',
                             type: 'ROLE',
                             permission: true,
                         },
                         {   // Moderator
-                            id: '752363863441145866',
+                            id: '917806303194263633',
                             type: 'ROLE',
                             permission: true,
                         },
@@ -25,12 +25,12 @@ export default {
                     ],
                     admin: [
                         {   // Admin
-                            id: '784875278593818694',
+                            id: '917806303194263634',
                             type: 'ROLE',
                             permission: true,
                         },
                         {   // Moderator
-                            id: '752363863441145866',
+                            id: '917806303194263633',
                             type: 'ROLE',
                             permission: true,
                         },
@@ -41,7 +41,7 @@ export default {
                             permission: true,
                         },
                         {   // Pog staff
-                            id: '751919243062411385',
+                            id: '917806303173283879',
                             type: 'ROLE',
                             permission: true,
                         },
@@ -51,7 +51,15 @@ export default {
                     awardnft: [
                         {
                             // *drops
-                            id: '914629494319501332',
+                            id: '917806303156523070',
+                            type: 'ROLE',
+                            permission: true,
+                        },
+                    ],
+                    poap: [
+                        {
+                            // *drops
+                            id: '917806303156523070',
                             type: 'ROLE',
                             permission: true,
                         },
