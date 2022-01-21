@@ -73,7 +73,10 @@ export class PogBot extends Client {
         return user.send({
             embeds: [embed],
             ...options,
-        }).catch(() => send_disabled_msg && this.sendDisabledDmMessage(user));
+        }).catch((e) => {
+            send_disabled_msg && this.sendDisabledDmMessage(user);
+            throw e;
+        });
     }
 
     /**
