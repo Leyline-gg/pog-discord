@@ -15,7 +15,7 @@ jobs:
               with:
                   command: |
                       rm -rf pog-discord/
-                      git clone -b production --single-branch git@github.com:Pog-gg/pog-discord.git
+                      git clone -b production --single-branch git@github.com:Leyline-gg/pog-discord.git
                       cd pog-discord/
                       npm install
                       pm2 delete all
