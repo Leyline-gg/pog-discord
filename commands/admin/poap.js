@@ -71,6 +71,7 @@ class poap extends Command {
 
     awardPOAP({user, code}) {
         const { bot } = this;
+        console.log(code);
         return bot.sendDM({user, embed: new EmbedBase(bot, {
             //thumbnail: { url: nft.thumbnailUrl },
             fields: [
@@ -79,7 +80,10 @@ class poap extends Command {
                     value: code,
                 },
             ],	
-        })}).then(() => true).catch(() => false);
+        })}).then(() => true).catch((e) => {
+            console.log(e);
+            return false;
+        });
     }
 
     subcommands = {
@@ -119,7 +123,7 @@ class poap extends Command {
             const { bot } = this;
             const files = await fs.promises.readdir('cache/poap');
             const file = files.sort((a, b) => Number(b.split('.')[0]) - Number(a.split('.')[0]))[0];
-            const codes = (await fs.promises.readFile(`cache/poap/${file}`, 'utf8')).split('\r\n');
+            const codes = (await fs.promises.readFile(`cache/poap/${file}`, 'utf8')).split('\n');
 
             const ch = opts.getChannel('channel');
             const members = [...(await bot.channels.fetch(ch.id, {force: true})).members.values()];

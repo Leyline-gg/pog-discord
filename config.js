@@ -66,15 +66,11 @@ export default {
                     ],
                 },
             },
-            pog_guild_id: '751913089271726160',
+            pog_guild_id: '917806303156523069',
             channels: {
-                private_log: '843892751276048394',
-                public_log: '810265135419490314',
-                reward_log: '872724760805654538',
-                mod_log: '896539306800328734', //private mod log
-                submission_log: '903056355311644732',   //private submission log
-                ama_vc: '794283967460147221',
-                polls: '790063418898907166',
+                private_log: '933539353538486422',
+                public_log: '933539277298610206',
+                mod_log: '917806304515473425',
             },
             events: {
                 goodActs: {
@@ -92,8 +88,8 @@ export default {
             },
             // PogBot.checkMod() returns true if user has any of these roles
             mod_roles: [
-                '784875278593818694',   //Admin
-                '752363863441145866',   //Mod
+                '917806303194263634',   //Admin
+                '917806303194263633',   //Mod
             ],
             // Can be self-assigned using a command
             self_roles: [

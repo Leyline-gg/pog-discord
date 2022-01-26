@@ -120,6 +120,7 @@ const init = async function () {
     bot.logger.log(`Loaded ${bot.events.size} Discord events`)
 
     //import firebase events
+    /*
     for await (const item of klaw('./events/firebase')){
         const eventFile = path.parse(item.path);
         if (!eventFile.ext || eventFile.ext !== '.js') continue;
@@ -152,6 +153,7 @@ const init = async function () {
         }
     }
     bot.logger.log(`Loaded ${bot.firebase_events.size} Firebase events`);
+    */
 
     bot.logger.log('Connecting to Discord...');
     bot.login(process.env.BOT_TOKEN).then(() => {
