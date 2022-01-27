@@ -71,6 +71,7 @@ export default {
                 private_log: '933539353538486422',
                 public_log: '933539277298610206',
                 mod_log: '917806304515473425',
+                poap: '936392058879504405',
             },
             events: {
                 goodActs: {
@@ -147,6 +148,7 @@ export default {
 				submission_log: '903055896173764659', //private submission log
 				ama_vc: '869993145499287604',
 				polls: '877229054456107069',
+                poap: '936392683604279356',
 			},
 			events: {
 				goodActs: {
