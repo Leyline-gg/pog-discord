@@ -1,4 +1,5 @@
-import { Command, EmbedBase, } from '../../classes';
+import parse from 'parse-duration';
+import { Command, EmbedBase, PoapClaimEvent, } from '../../classes';
 import fs from 'node:fs';
 import https from 'node:https';
 
@@ -30,10 +31,66 @@ class poap extends Command {
                         },
                     ],
                 },
+                {
+                    type: 'SUB_COMMAND',
+                    name: 'event',
+                    description: 'Create a POAP claim event',
+                    options: [
+                        {
+                            type: 'STRING',
+                            name: 'title',
+                            description: 'The title of the event',
+                            required: true,
+                        },
+                        {
+                            type: 'CHANNEL',
+                            name: 'channel',
+                            description: 'The text channel where the bot will send the claim embed. Defaults to the designated claim channel',
+                            required: false,
+                            channelTypes: [
+                                'GUILD_TEXT',
+                                'GUILD_NEWS',
+                            ],
+                        },
+                        {
+                            type: 'STRING',
+                            name: 'duration',
+                            description: 'The duration of the event, eg: 1h. Default duration is 30 minutes',
+                            required: false,
+                        },
+                        {
+                            type: 'STRING',
+                            name: 'text',
+                            description: 'The text to be displayed in the embed. \\n is a newline',
+                            required: false,
+                        },
+                    ],
+                },
             ],
             category: 'admin',
             deferResponse: true,
         });
+    }
+
+    parseInput(opts) {
+        const { bot } = this;
+        const [title, channel, duration, text] = [
+            opts.getString('title'),
+            opts.getChannel('channel') || bot.config.poap,
+            opts.getString('duration') || '30min',
+            opts.getString('text')?.replaceAll('\\n', '\n') || '',
+        ];
+
+        const parsed_dur = parse(duration); //ms
+        if(!!duration && !parsed_dur)
+            throw new Error(`That's not a valid duration`);
+
+        //convert duration to epoch timestamp
+        const expires = !!duration 
+            ? Date.now() + parsed_dur 
+            : null;
+
+        return { title, channel, duration: parsed_dur, text, expires };
     }
 
     download(url, location) {
@@ -85,6 +142,34 @@ class poap extends Command {
             return false;
         });
     }
+
+    msgFilter(intr) {
+        return async function (msg) {
+            const { bot, download } = this;
+            if(msg.channel.id !== intr.channelId ||
+                msg.author.id !== intr.user.id ||
+                !msg.attachments?.first()?.url?.toLowerCase()?.endsWith('.txt')) return;
+                
+            //disable this watcher
+            bot.off('messageCreate', this.msgFilter(intr));
+
+            //delete the message
+            msg.delete();
+
+            this.poap_filename = Date.now();
+
+            await download(msg.attachments.first().url, `cache/poap/${this.poap_filename}.txt`);
+
+            bot.intrUpdate({
+                intr, 
+                embed: new EmbedBase(bot, {
+                    description: 'Codes loaded successfully',
+                }).Success(),
+            });
+
+            return;
+        }   
+    };
 
     subcommands = {
         load: ({intr}) => {
@@ -179,6 +264,40 @@ class poap extends Command {
             bot.intrReply({intr, embed});
 
             return;
+        },
+        event: async ({intr, opts}) => {
+            const { bot, msgFilter } = this;
+
+            bot.intrReply({
+                intr, 
+                embed: new EmbedBase(bot, {
+                    description: 'Please upload the text file containing the POAP codes',
+                }),
+            });
+
+            bot.on('messageCreate', msgFilter(intr));
+
+            const { title, channel, duration, text, expires } = this.parseInput(opts);
+
+            //generate and send event preview
+            const event = new PoapClaimEvent(bot, {
+                title,
+                description: text,
+                duration,
+                author: intr.user,
+                poap_filename: this.poap_filename,
+            });
+
+            if(!(await bot.intrConfirm({intr, embed: event.embed, content: `Confirm this is the embed that will be sent to ${channel}`})))
+                return bot.intrReply({intr, embed: new EmbedBase(bot).ErrorDesc('POAP Event canceled'), content: '\u200b'});
+
+            //send poll
+            await event.publish({channel});
+
+            //edit response with msg id
+            bot.intrReply({intr, embed: new EmbedBase(bot, {
+                description: `✅ **POAP Event Published Succesfully** ([Click to view](${event.msg.url}))`,
+            }).Success(), content: '\u200b'});
         },
     }
 

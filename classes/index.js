@@ -15,3 +15,4 @@ export * from './services/SentenceService';
 export * from './services/ImageService'
 export * from './CloudConfig';
 export * from './PogBot';
+export * from './events/PoapClaimEvent';

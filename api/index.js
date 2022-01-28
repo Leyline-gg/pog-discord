@@ -6,3 +6,4 @@ export * from './userConnections';
 export * from './items';
 export * from './misc';
 export * from './communityEvents';
+export * from './poapEvents';
