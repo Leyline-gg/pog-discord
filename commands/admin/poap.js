@@ -79,6 +79,7 @@ class poap extends Command {
 
     awardPOAP({user, code}) {
         const { bot } = this;
+        console.log(code);
         return bot.sendDM({user, embed: new EmbedBase(bot, {
             //thumbnail: { url: nft.thumbnailUrl },
             fields: [
