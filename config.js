@@ -85,6 +85,7 @@ export default {
             },
             emoji: {
                 pog_logo: '<:PogLogo:846152082226282506>',
+                deafened: '<:deafened:948609937355997195>',
             },
             // PogBot.checkMod() returns true if user has any of these roles
             mod_roles: [
@@ -161,6 +162,7 @@ export default {
 			},
 			emoji: {
 				pog_logo: '<:PogLogo:859111140696391680>',
+                deafened: '<:deafened:945042605438279723>',                
 			},
 			mod_roles: [
 				'858144532318519326', //Pog Staff
