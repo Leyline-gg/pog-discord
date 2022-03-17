@@ -97,7 +97,7 @@ export default {
                 '853414453206188063',   //do good alerts
                 '874704370103615559',   //Bot Updates
             ],
-            muted_role: '896538689734324224',
+            muted_role: '917806303156523073',
         };
     },
     get development() {
