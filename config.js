@@ -94,8 +94,8 @@ export default {
             ],
             // Can be self-assigned using a command
             self_roles: [
-                '853414453206188063',   //do good alerts
-                '874704370103615559',   //Bot Updates
+                '957734682500415538',   //event announcements
+                '957734692730327080',   //altruraiders
             ],
             muted_role: '917806303156523073',
         };

@@ -1,6 +1,6 @@
 {
 	"name": "pog-discord",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "Proof of Good Discord bot",
 	"main": "index.js",
 	"type": "module",
