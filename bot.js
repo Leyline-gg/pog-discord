@@ -1,12 +1,10 @@
 import { Client, Collection, Emoji } from "discord.js";
 import config from '../config.js';
-import { ConfirmInteraction, EmbedBase, Logger, CloudConfig } from ".";
+import { ConfirmInteraction, EmbedBase, Logger, CloudConfig } from "./classes";
 
 // Custom bot class, based off the discord.js Client (bot)
+// Designed as a singleton
 export class PogBot extends Client {
-    //getter for all Config methods that call Config.get()
-    get connection_tutorial() { return CloudConfig.get('connection_tutorial'); }
-    get xp_doc() { return CloudConfig.get('xp_doc'); }
 
     constructor(options) {
         super(options);
