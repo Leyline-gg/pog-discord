@@ -1,7 +1,7 @@
 import { Collection } from 'discord.js';
 import truncate from 'truncate';
+import { EmbedBase } from '.';
 import * as Firebase from '../api';
-import { EmbedBase, XPService } from '.';
 
 export class CommunityPoll {
     nums_unicode = ['0️⃣', '1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
@@ -64,7 +64,7 @@ export class CommunityPoll {
         this.vote_cache.set(vote.user.id, data);
 
         //add xp
-        await XPService.addPollVote({uid: vote.user.id, poll_id: this.id});
+        //await XPService.addPollVote({uid: vote.user.id, poll_id: this.id});
 
         //Update the embed field
         this.#updatePollEmbedVotes();
