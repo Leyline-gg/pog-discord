@@ -24,7 +24,7 @@
 		"lodash-es": "^4.17.21",
 		"moment": "^2.29.1",
 		"node-schedule": "^2.0.0",
-		"parse-duration": "^1.0.0",
+		"parse-duration": "^1.0.2",
 		"truncate": "^2.1.0"
 	}
 }
