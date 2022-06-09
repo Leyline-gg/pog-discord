@@ -48,14 +48,6 @@ export default {
                     ],
                 },
                 names: {
-                    awardnft: [
-                        {
-                            // *drops
-                            id: '917806303156523070',
-                            type: 'ROLE',
-                            permission: true,
-                        },
-                    ],
                     poap: [
                         {
                             // *drops
@@ -72,17 +64,7 @@ export default {
                 public_log: '933539277298610206',
                 mod_log: '917806304515473425',
             },
-            events: {
-                goodActs: {
-                    target_channel: '840679701118189579',
-                },
-                kindWords: {
-                    target_channel: '830163592803254352',
-                },
-                addAlphaTesterRole: {
-                    alpha_role: '751919744528941126',
-                },
-            },
+            events: {},
             emoji: {
                 pog_logo: '<:PogLogo:846152082226282506>',
                 deafened: '<:deafened:948609937355997195>',
@@ -97,7 +79,9 @@ export default {
                 '957734682500415538',   //event announcements
                 '957734692730327080',   //altruraiders
             ],
-            muted_role: '917806303156523073',
+            roles: {
+                muted: '917806303156523073',
+            },
         };
     },
     get development() {
@@ -129,14 +113,6 @@ export default {
 					],
 				},
                 names: {
-                    awardnft: [
-                        {
-                            // *drops
-                            id: '914642168939962378',
-                            type: 'ROLE',
-                            permission: true,
-                        },
-                    ],
                 },
 			},
 			pog_guild_id: '857839180608307210',
@@ -149,17 +125,7 @@ export default {
 				ama_vc: '869993145499287604',
 				polls: '877229054456107069',
 			},
-			events: {
-				goodActs: {
-					target_channel: '877229121086840912',
-				},
-				kindWords: {
-					target_channel: '877229143786422323',
-				},
-				addAlphaTesterRole: {
-					alpha_role: '879817566799925298',
-				},
-			},
+			events: {},
 			emoji: {
 				pog_logo: '<:PogLogo:859111140696391680>',
                 deafened: '<:deafened:945042605438279723>',                
@@ -168,7 +134,9 @@ export default {
 				'858144532318519326', //Pog Staff
 			],
 			self_roles: ['873234204706631720', '865629785015320608'],
-			muted_role: '894741083186139156',
+			roles:{
+                muted: '894741083186139156'
+            },
 		};
     },
     get staging() {
