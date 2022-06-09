@@ -12,7 +12,6 @@ export class CommunityPoll {
         author = null,
         embed = null,
     }) {
-        this.bot = bot;
         this.question = question.trim().endsWith('?') ? question.trim() : question.trim() + '?';
         this.duration = duration;
         this.choices = choices.map(choice => ({
@@ -20,7 +19,7 @@ export class CommunityPoll {
             value: choice.value.trim(),
         }));
         this.author = bot.users.resolve(author);
-        this.embed = new EmbedBase(this.bot, !!embed ? {
+        this.embed = new EmbedBase(!!embed ? {
             ...embed.toJSON(),
             footer: `Created by ${this.author.tag}`,
         } : {
@@ -38,7 +37,7 @@ export class CommunityPoll {
     };
 
     end() {
-        const { bot } = this;
+        
         //log poll closure
         bot.logDiscord({embed: new EmbedBase({
             fields: [{
@@ -135,7 +134,7 @@ export class CommunityPoll {
      * @returns {Promise<Boolean>} Confirmation result of the prompt
      */
     #confirmVote(vote) {
-        return this.bot.intrConfirm({intr: vote, embed: new EmbedBase(this.bot, {
+        return bot.intrConfirm({intr: vote, embed: new EmbedBase({
             title: 'Confirm Vote',
             fields: [{
                 name: `${this.nums_unicode[vote.customId]}  ${vote.component.label}`,
@@ -154,7 +153,7 @@ export class CommunityPoll {
     }
 
     createCollector(msg) {
-        const { bot } = this;
+        
         this.msg ||= msg;
         this.id ||= msg.id;
 
@@ -224,7 +223,7 @@ export class CommunityPoll {
      * @returns {Promise<Message>} the poll `Message` that was sent
      */
     async publish() {
-        const { bot } = this;
+        
         //send and store message
         const msg = await bot.channels.resolve(bot.config.channels.polls).send({
             embeds: [this.embed],

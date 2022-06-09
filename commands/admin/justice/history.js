@@ -15,7 +15,7 @@ class history extends JusticeCommand {
 
     //Override parent
     async executeSentence({intr, user}) {
-        const { bot } = this;
+        
         const mod = bot.checkMod(user.id);  //we use this twice below
         return bot.intrReply({
             intr, 

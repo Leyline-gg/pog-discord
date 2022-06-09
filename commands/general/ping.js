@@ -10,7 +10,7 @@ class ping extends Command {
     }
 
     async run({intr}) {
-        const { bot } = this;
+        
         //TODO: implement Pog API/Firebase API latency (choose a user-friendly label)
         const response = await bot.intrReply({intr, embed: new EmbedBase({
             description: 'Pinging...',

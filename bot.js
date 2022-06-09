@@ -1,10 +1,11 @@
-import { Client, Collection, Emoji } from "discord.js";
+import { Client, Collection, Emoji, Intents } from 'discord.js';
 import config from '../config.js';
-import { ConfirmInteraction, EmbedBase, Logger, CloudConfig } from "./classes";
+import { ConfirmInteraction, EmbedBase, Logger } from './classes';
 
 // Custom bot class, based off the discord.js Client (bot)
 // Designed as a singleton
 export class PogBot extends Client {
+    //if using CloudConfig, create getters here
 
     constructor(options) {
         super(options);
@@ -259,3 +260,20 @@ export class PogBot extends Client {
         }), other);
     }
 }
+
+export default new PogBot({ 
+    restTimeOffset: 0, /*allegedly this helps with API delays*/
+    intents: [
+        Intents.FLAGS.GUILDS,
+        Intents.FLAGS.GUILD_MEMBERS,
+        Intents.FLAGS.GUILD_MESSAGES,
+        Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+        Intents.FLAGS.GUILD_VOICE_STATES,
+        Intents.FLAGS.DIRECT_MESSAGES,
+        Intents.FLAGS.GUILD_SCHEDULED_EVENTS,
+    ],
+    allowedMentions: {
+        parse: ['users', 'roles', 'everyone'],
+        repliedUser: true,
+    },
+});
