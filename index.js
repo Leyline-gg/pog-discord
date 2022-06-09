@@ -190,34 +190,6 @@ const postInit = async function () {
         bot.logger.log(`Registered ${cmds.size} out of ${bot.commands.size} commands to Discord`);
     })();
 
-    //import ReactionCollectors (this can be modified later to take a more generic approach)
-    await (async function importReactionCollectors() {
-        let succesfully_imported = 0;
-        const collectors = await admin
-            .firestore()
-			.collection(`discord/bot/reaction_collectors/`)
-			.where('expires', '>', Date.now())
-            .get();
-        for (const doc of collectors.docs) {
-            try {
-                const ch = await bot.channels.fetch(doc.data().channel, true, true);
-                const msg = await ch.messages.fetch(doc.id, true, true);
-                const collector = await new ReactionCollector(bot, {
-                    type: ReactionCollector.Collectors[doc.data().type],
-                    msg,
-                }).loadMessageCache(doc);
-                doc.data().approved ? 
-                    collector.setupApprovedCollector({duration:doc.data().expires - Date.now()}) :
-                    collector.setupModReactionCollector({from_firestore: true, duration:doc.data().expires - Date.now()});
-                succesfully_imported++;
-            } catch (err) {
-                bot.logger.error(`importReactionCollectors error with doc id ${doc.id}: ${err}`);
-            }   
-        }
-        bot.logger.log(`Imported ${succesfully_imported} ReactionCollectors from Firestore`);
-		return;
-    })();
-
     //import active polls
     await (async function importPolls() {
         let succesfully_imported = 0; 
@@ -269,37 +241,6 @@ const postInit = async function () {
             }   
         }
         bot.logger.log(`Imported ${succesfully_imported} sentences from Firestore`);
-        return;
-    })();
-
-    //import active CommunityClaimEvents
-    await (async function importCommunityClaimEvents() {
-        let succesfully_imported = 0; 
-        const events = await admin
-            .firestore()
-			.collection(`discord/bot/community_events/`)
-			.where('expires', '>', Date.now())
-            .get();
-        for (const doc of events.docs) {
-            try {
-                const ch = await bot.channels.fetch(doc.data().channel, true, true);
-                const msg = await ch.messages.fetch(doc.id, true, true);
-                const embed = msg.embeds[0];
-                if(!embed) throw new Error('No embeds found on the fetched message');
-                await new CommunityClaimEvent(bot, {
-                    embed,
-                    author: await bot.users.fetch(doc.data().created_by),
-                    title: embed.title, 
-                    description: embed.descripition,
-                    duration: doc.data().expires - Date.now(),
-                    nft: await Firebase.getNFT(doc.data().nft),
-                }).createCollector(msg).importFirestoreData(doc);
-                succesfully_imported++;
-            } catch (err) {
-                bot.logger.error(`importCommunityClaimEvents error with doc id ${doc.id}: ${err}`);
-            }   
-        }
-        bot.logger.log(`Imported ${succesfully_imported} CommunityClaimEvents from Firestore`);
         return;
     })();
 
