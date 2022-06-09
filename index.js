@@ -7,8 +7,7 @@ import { Intents, Message } from 'discord.js';
 import admin from 'firebase-admin';
 import klaw from 'klaw';
 import path from 'path';
-import * as Firebase from './api';
-import { PogBot, EmbedBase, CommunityPoll, ReactionCollector, SentenceService, CloudConfig, CommunityClaimEvent } from './classes';
+import { CommunityPoll, EmbedBase, PogBot, SentenceService } from './classes';
 //formally, dotenv shouldn't be used in prod, but because staging and prod share a VM, it's an option I elected to go with for convenience
 import { config as dotenv_config } from 'dotenv';
 dotenv_config();
