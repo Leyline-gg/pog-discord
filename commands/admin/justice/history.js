@@ -2,7 +2,7 @@ import { JusticeCommand, SentenceService, EmbedBase } from '../../../classes';
 
 class history extends JusticeCommand {
     constructor(bot) {
-        super(bot, {
+        super({
             name: 'history',
             sentence_type: 'HISTORY',
             description: 'View the entire recorded sentence history for a Discord user',
@@ -43,7 +43,7 @@ class history extends JusticeCommand {
                 return bot.intrReply({
                     intr,
                     ephemeral: true,
-                    embed: new EmbedBase(bot, {
+                    embed: new EmbedBase({
                         description: `❌ **Sentence canceled**`,
                     }).Error(),
                 });

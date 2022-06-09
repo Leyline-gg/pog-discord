@@ -5,7 +5,7 @@ import * as Firebase from '../api';
 
 export class CommunityPoll {
     nums_unicode = ['0️⃣', '1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
-    constructor(bot, {
+    constructor({
         question = '',
         duration = 0,   //milliseconds
         choices = [],
@@ -40,7 +40,7 @@ export class CommunityPoll {
     end() {
         const { bot } = this;
         //log poll closure
-        bot.logDiscord({embed: new EmbedBase(bot, {
+        bot.logDiscord({embed: new EmbedBase({
             fields: [{
                 name: 'Poll Ended',
                 value: `The [poll](${this.msg.url}) created by ${bot.formatUser(this.author)} with the question \`${this.question}\` just expired`,
@@ -163,28 +163,28 @@ export class CommunityPoll {
             time: this.duration,
         }).on('collect', async (intr) => {
             if(this.hasUserVoted(intr.user))
-                return bot.intrReply({intr, embed: new EmbedBase(bot, {
+                return bot.intrReply({intr, embed: new EmbedBase({
                     description: `❌ **You already voted!**`,
                 }).Error(), ephemeral: true});
             //state: user is already trying to vote, prevent him from clicking the button again
             const menu = await bot.intrReply({intr, components: this.vote_components, content: 'Pick an option below to vote', ephemeral: true, fetchReply: true});
             const vote = await menu.awaitInteractionFromUser({user:intr.user});
             if(!(await this.#confirmVote(vote)))
-                return bot.intrUpdate({intr: vote, embed: new EmbedBase(bot, {
+                return bot.intrUpdate({intr: vote, embed: new EmbedBase({
                     description: `❌ **Vote Canceled**`,
                 }).Error()});
             
             //record vote
             await this.#storeVote(vote);
             //log vote
-            bot.logDiscord({embed: new EmbedBase(bot, {
+            bot.logDiscord({embed: new EmbedBase({
                 fields: [{
                     name: 'User Voted on Poll',
                     value: `${bot.formatUser(vote.user)} voted for option number \`${vote.customId}\` on the [poll](${this.msg.url}) with the question \`${this.question}\``,
                 }],
             })});
 
-            return bot.intrUpdate({intr: vote, embed: new EmbedBase(bot, {
+            return bot.intrUpdate({intr: vote, embed: new EmbedBase({
                 description: `✅ **Vote Submitted**`,
             }).Success()});
         }).once('end', () => this.end());
@@ -254,7 +254,7 @@ export class CommunityPoll {
         this.createCollector(msg);
 
         //log poll creation
-        bot.logDiscord({embed: new EmbedBase(bot, {
+        bot.logDiscord({embed: new EmbedBase({
             fields: [{
                 name: 'Poll Created',
                 value: `${bot.formatUser(this.author)} created a new [poll](${this.msg.url}) with the question \`${this.question}\`, set to expire on ${bot.formatTimestamp(Date.now() + this.duration, 'F')}`,

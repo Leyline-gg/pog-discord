@@ -2,7 +2,7 @@ import { DiscordEvent } from "../../../classes";
 
 export default class extends DiscordEvent {
     constructor(bot) {
-        super(bot, {
+        super({
             name: 'autocomplete',
             description: 'Receive and respond to command autocomplete events',
             event_type: 'interactionCreate',

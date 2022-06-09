@@ -2,7 +2,7 @@ import { Command, EmbedBase } from '../../classes';
 
 class sudosay extends Command {
     constructor(bot) {
-        super(bot, {
+        super({
             name: 'sudosay',
             description: 'Force (sudo) the bot to say something in a specific channel',
             options: [
@@ -32,14 +32,14 @@ class sudosay extends Command {
         const ch = opts.getChannel('channel');
 
         //validate args
-        if(!ch.isText()) return bot.intrReply({intr, embed: new EmbedBase(bot, {
+        if(!ch.isText()) return bot.intrReply({intr, embed: new EmbedBase({
             description: `❌ **That's not a text channel!**`,
         }).Error()});
         
         //send msg
         ch.send(opts.getString('text'))
             .then(m => bot.intrReply({intr, content: `[Done](${m.url})`}))
-            .catch(err => bot.intrReply({intr, embed: new EmbedBase(bot, {
+            .catch(err => bot.intrReply({intr, embed: new EmbedBase({
                 description: `❌ **Error:** ${err}`,
             }).Error()}));
     }

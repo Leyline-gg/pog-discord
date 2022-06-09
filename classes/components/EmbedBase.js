@@ -3,7 +3,7 @@ import truncate from 'truncate';
 
 //base Embed object, customized for Pog
 export class EmbedBase extends MessageEmbed {
-    constructor(bot, {
+    constructor({
         color = 0x2EA2E0,
         title,
         url,

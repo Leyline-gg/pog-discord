@@ -1,3 +1,4 @@
+export * from './Logger';
 export * from './commands/Command';
 export * from './commands/JusticeCommand';
 export * from './components/ConfirmInteraction';
@@ -8,5 +9,3 @@ export * from './services/SentenceService';
 export * from './CloudConfig';
 export * from './CommunityPoll';
 export * from './FirebaseCache';
-export * from './Logger';
-export * from './PogBot';

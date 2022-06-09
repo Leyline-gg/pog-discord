@@ -2,7 +2,7 @@ import { JusticeCommand, SentenceService, EmbedBase } from '../../../classes';
 
 class ban extends JusticeCommand {
     constructor(bot) {
-        super(bot, {
+        super({
             name: 'ban',
             sentence_type: SentenceService.SENTENCE_TYPES.BAN,
             description: 'Issue a temporary or permanent ban to a Discord user',
@@ -30,7 +30,7 @@ class ban extends JusticeCommand {
             reason,
         });
         
-        return bot.intrReply({intr, embed: new EmbedBase(bot, {
+        return bot.intrReply({intr, embed: new EmbedBase({
             description: `⚖ **Sentence Successfully Issued**`,
         }).Sentence(), ephemeral: true});
     }
@@ -47,7 +47,7 @@ class ban extends JusticeCommand {
                 return bot.intrReply({
                     intr,
                     ephemeral: true,
-                    embed: new EmbedBase(bot, {
+                    embed: new EmbedBase({
                         description: `❌ **Sentence canceled**`,
                     }).Error(),
                 });

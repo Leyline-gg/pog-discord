@@ -4,7 +4,7 @@ import { Command, EmbedBase } from '../../classes';
 
 class setstatus extends Command {
     constructor(bot) {
-        super(bot, {
+        super({
             name: 'setstatus',
             description: 'Set the Discord status of the bot',
             options: [
@@ -44,7 +44,7 @@ class setstatus extends Command {
             }] : []), 
         ]});
 
-        bot.intrReply({intr, embed: new EmbedBase(bot, {
+        bot.intrReply({intr, embed: new EmbedBase({
             description: `✅ **Status updated**`,
         }).Success()});
     }

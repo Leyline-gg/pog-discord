@@ -5,7 +5,7 @@ import { partition } from 'lodash-es';
 
 class poap extends Command {
     constructor(bot) {
-        super(bot, {
+        super({
             name: 'poap',
             description: 'POAP event actions',
             options: [
@@ -80,7 +80,7 @@ class poap extends Command {
     awardPOAP({user, code}) {
         const { bot } = this;
         console.log(code);
-        return bot.sendDM({user, embed: new EmbedBase(bot, {
+        return bot.sendDM({user, embed: new EmbedBase({
             //thumbnail: { url: nft.thumbnailUrl },
             fields: [
                 {
@@ -118,7 +118,7 @@ class poap extends Command {
                 //respond to user
                 bot.intrUpdate({
                     intr, 
-                    embed: new EmbedBase(bot, {
+                    embed: new EmbedBase({
                         description: `✅ **I have successfully loaded ${codes.length} POAP codes and they are ready to be dropped**`,
                     }).Success(),
                 });
@@ -126,7 +126,7 @@ class poap extends Command {
 
             bot.intrReply({
                 intr, 
-                embed: new EmbedBase(bot, {
+                embed: new EmbedBase({
                     description: 'Please upload the text file containing the POAP codes',
                 }),
             });
@@ -181,7 +181,7 @@ class poap extends Command {
                 //if(member?.connected === false) return bot.config.emoji.unconnected;
                 return '❓';
             };
-            const embed = new EmbedBase(bot, {
+            const embed = new EmbedBase({
                 description: `**${awarded.length} out of ${eligible.length} POAPs** were awarded`,
                 //thumbnail: { url: nft.thumbnailUrl },
                 fields: [

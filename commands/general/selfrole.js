@@ -2,7 +2,7 @@ import { Command, EmbedBase } from '../../classes';
 
 class selfrole extends Command {
     constructor(bot) {
-        super(bot, {
+        super({
             name: 'selfrole',
             description: 'Give or take assignable roles from yourself',
             category: 'general',
@@ -44,7 +44,7 @@ class selfrole extends Command {
             await response_intr.member.roles.add(add, `Self-assigned with the ${this.name} command`);
             await response_intr.member.roles.remove(rem, `Self-removed with the ${this.name} command`);
 
-            bot.intrReply({intr, embed: new EmbedBase(bot, {
+            bot.intrReply({intr, embed: new EmbedBase({
                 fields: [
                     ...(!!add.length ? [{
                         name: 'Roles Added',
