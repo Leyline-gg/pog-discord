@@ -20,7 +20,7 @@
 		"discord.js": "^13.8.1",
 		"dotenv": "^16.0.2",
 		"firebase-admin": "^11.0.1",
-		"klaw": "^4.0.1",
+		"klaw": "^4.1.0",
 		"lodash-es": "^4.17.21",
 		"moment": "^2.29.4",
 		"node-schedule": "^2.1.0",
